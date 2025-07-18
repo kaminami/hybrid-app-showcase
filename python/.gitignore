@@ -316,5 +316,5 @@ pyrightconfig.json
 # End of https://www.toptal.com/developers/gitignore/api/pycharm+all,visualstudiocode,macos,python
 
 
-public/
+webapp/
 # This is the output directory for the webapp build, which should not be tracked by git

@@ -7,8 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build-dev": "ng build --configuration development && robocopy ./dist/webapp/browser ../python/public/ /MIR",
-    "build-prod": "ng build --configuration production && robocopy ./dist/webapp/browser ../python/public/ /MIR"
+    "build-dev": "ng build --configuration development && robocopy ./dist/webapp/browser ../python/webapp/ /MIR",
+    "build-prod": "ng build --configuration production && robocopy ./dist/webapp/browser ../python/webapp/ /MIR"
   },
   "private": true,
   "dependencies": {
