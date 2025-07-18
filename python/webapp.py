@@ -21,5 +21,6 @@ def start_server():
 def start_server_thread():
     threading.Thread(target=start_server, daemon=True).start()
 
+
 if __name__ == "__main__":
     start_server()
