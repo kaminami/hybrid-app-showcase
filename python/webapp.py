@@ -5,14 +5,15 @@ import uvicorn
 
 app_port = 8910  # ポート番号を指定（必要に応じて変更）
 app = FastAPI()
-app.mount("/", StaticFiles(directory="webapp", html=True), name="static")
-
 
 # APIエンドポイントの例
 @app.get("/api/hello")
 def hello():
     return {"message": "Hello from FastAPI"}
 
+# 静的ファイルの提供
+# APIエンドポイント定義の後に設定する
+app.mount("/", StaticFiles(directory="webapp", html=True), name="static")
 
 # サーバー起動
 def start_server():
