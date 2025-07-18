@@ -16,18 +16,10 @@ def hello():
 
 # サーバー起動
 def start_server():
-    threading.Thread(target=do_start_server, daemon=True).start()
-
-def do_start_server():
     uvicorn.run(app, host="127.0.0.1", port=app_port, log_level="info")
 
+def start_server_thread():
+    threading.Thread(target=start_server, daemon=True).start()
 
 if __name__ == "__main__":
     start_server()
-
-    # ↓ ここで、UI起動（Electron / WebView / Qt etc.）
-    # 例：os.system("electron .")、または Qt GUI の mainloop を起動
-    import time
-    print("Server started. Keep running...")
-    while True:
-        time.sleep(1)

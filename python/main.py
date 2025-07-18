@@ -7,7 +7,7 @@ import mainwindow
 
 if __name__ == "__main__":
     # FastAPIサーバーを起動
-    webapp.start_server()
+    webapp.start_server_thread()
 
     # Qtアプリケーションを起動
     app = QApplication(sys.argv)
