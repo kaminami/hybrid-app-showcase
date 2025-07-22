@@ -1,6 +1,6 @@
 import sys
 
-from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtWidgets import QApplication
 
 import webapp
 import mainwindow
@@ -13,4 +13,5 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = mainwindow.MainWindow()
     window.show()
+
     sys.exit(app.exec())
