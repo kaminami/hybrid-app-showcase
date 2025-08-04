@@ -13,7 +13,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Hybrid App Showcase")
         self.resize(1900, 1080)
 
-        self.browser = QWebEngineView()
+        self.view = QWebEngineView()
 
         self._add_menu_bar()
 
@@ -22,16 +22,19 @@ class MainWindow(QMainWindow):
         self.channel = QWebChannel()
         self.channel.registerObject("ticker", self._ticker)
 
-        self.browser.page().setWebChannel(self.channel)
+        self.view.page().setWebChannel(self.channel)
 
-        self.browser.load(QUrl("http://127.0.0.1:8910/"))  # FastAPIのサーバーが提供するURL
-        self.setCentralWidget(self.browser)
+        self.view.load(QUrl("http://127.0.0.1:8910/"))  # FastAPIのサーバーが提供するURL
+        self.setCentralWidget(self.view)
 
         self.start_ticking()
+
+        self._dev_tools_window = None
 
     def _add_menu_bar(self):
         self._add_file_menu()
         self._add_go_menu()
+        self._add_debug_menu()
 
     def _add_file_menu(self):
         menu = self.menuBar().addMenu("File")
@@ -55,7 +58,28 @@ class MainWindow(QMainWindow):
             action.triggered.connect(lambda _, u=url: self._goto_url(u))
 
     def _goto_url(self, url: str):
-        self.browser.setUrl(QUrl(url))
+        self.view.setUrl(QUrl(url))
+
+    def _add_debug_menu(self):
+        menu = self.menuBar().addMenu("Debug")
+        open_action = menu.addAction("Open DevTools Window")
+        open_action.triggered.connect(self._open_dev_tools_window)
+
+    def _open_dev_tools_window(self):
+        if self._dev_tools_window is None:
+            from devtoolswindow import DevToolsWindow
+            self._dev_tools_window = DevToolsWindow()
+
+            self.view.page().setDevToolsPage(self._dev_tools_window.dev_tools_page)
+            self._dev_tools_window.closed.connect(self._clear_dev_tools_window)
+
+            self._dev_tools_window.show()
+
+        self._dev_tools_window.raise_()
+
+    def _clear_dev_tools_window(self):
+        if self._dev_tools_window is not None:
+            self._dev_tools_window = None
 
     def start_ticking(self):
         self._ticker.tick.connect(lambda ms: print(f"Tick at {ms} ms"))
