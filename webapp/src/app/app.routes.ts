@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import {Hello} from './hello/hello/hello';
-import {Top} from './top/top/top';
+import {Hello} from './hello/hello';
+import {Top} from './top/top';
 import {TimeTicker} from './time-ticker/time-ticker';
 
 export const routes: Routes = [
